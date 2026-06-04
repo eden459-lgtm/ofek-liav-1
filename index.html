@@ -555,10 +555,12 @@
       position: absolute; inset: 0;
       border-radius: 20px;
       backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
       display: flex; flex-direction: column;
       align-items: center; justify-content: center;
       padding: 28px 24px;
       text-align: center;
+      overflow: hidden;
     }
 
     .card-front {
@@ -882,15 +884,74 @@
     }
     .divider.center { margin-left: auto; margin-right: auto; }
 
-    /* ─── RESPONSIVE ─────────────────────────────── */
+    /* ─── RESPONSIVE TABLET (768px–1024px) ──────── */
+    @media (max-width: 1024px) {
+      .services-grid {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 20px;
+      }
+      .service-card { width: calc(33.333% - 14px); grid-column: unset; height: 220px; }
+      .service-card:nth-child(4),
+      .service-card:nth-child(5) { width: calc(40% - 14px); }
+
+      .why-items-grid { grid-template-columns: 1fr 1fr; }
+
+      /* הקטנת טקסט ב-card-back כדי שיכנס בתוך הכרטיס */
+      .card-back .service-title { font-size: 1rem; margin-bottom: 8px; }
+      .service-desc { font-size: .78rem; line-height: 1.5; }
+    }
+
+    /* ─── RESPONSIVE SMALL PHONES (<480px) ───────── */
+    @media (max-width: 480px) {
+      .hero-overlay-text h2 { white-space: normal; }
+    }
+
+    /* ─── RESPONSIVE LANDSCAPE SHORT (<600px tall) ─ */
+    @media (max-height: 600px) and (max-width: 768px) {
+      .hero-overlay-text { padding: 80px 20px 16px; }
+      .hero-photo        { width: 110px; height: 110px; }
+      .hero-card         { padding: 20px 24px 28px; }
+    }
+
+    /* ─── RESPONSIVE MOBILE ──────────────────────── */
     @media (max-width: 768px) {
       nav { padding: 12px 20px; }
       .nav-links { display: none; }
 
-      #hero { padding: 100px 24px 60px; }
-      .hero-inner { grid-template-columns: 1fr; gap: 40px; }
-      .hero-image-side { order: -1; }
-      .hero-photo { width: 220px; height: 220px; }
+      /* hero — כותרת למעלה + כרטיס למטה */
+      #hero { height: auto; min-height: 100svh; }
+      .hero-inner { flex-direction: column; align-items: stretch; height: auto; }
+
+      /* כותרת על התמונה — למעלה */
+      .hero-overlay-text {
+        display: block;
+        position: relative;
+        bottom: auto; right: auto;
+        order: 1;
+        padding: 90px 24px 32px;
+        text-align: center;
+        background: linear-gradient(to bottom, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.1) 100%);
+        white-space: normal;
+      }
+      .hero-overlay-text h2 {
+        font-size: clamp(2rem, 9vw, 3rem);
+        white-space: normal;
+      }
+      .hero-overlay-text p { font-size: 1rem; }
+      .hero-overlay-text p.sub2 { font-size: .88rem; }
+      .hero-bars-chart { display: none; }
+
+      /* כרטיס — למטה */
+      .hero-card {
+        order: 2;
+        width: 100%; border-radius: 0;
+        min-height: auto; padding: 32px 24px 44px;
+        justify-content: center;
+        background: rgba(12,32,42,0.93);
+      }
+      .hero-photo { width: 140px; height: 140px; }
 
       section { padding: 70px 24px; }
 
@@ -901,6 +962,9 @@
       .hero-stats { justify-content: center; }
 
       .footer-inner { flex-direction: column; text-align: center; }
+
+      /* ── FLOAT CTA ── */
+      .float-cta { bottom: 16px; left: 16px; font-size: .8rem; padding: 11px 18px; }
     }
   </style>
 </head>
